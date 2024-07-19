@@ -1,4 +1,4 @@
-# Iot-GreenHouse-Software
+# Iot-GreenHouse-Software/Backend
 Source files for MVP #1 Iot GreenHouse - Software/Backend 
 
 ## Overview

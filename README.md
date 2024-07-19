@@ -8,7 +8,7 @@ IoT system for greenhouses. This system will allow users to monitor and control 
 ## In this Repository
 
 - Backend
-- 
+
 ## Getting Started
 
 ### Tools and Technologies:

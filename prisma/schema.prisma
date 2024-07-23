@@ -14,13 +14,43 @@ datasource db {
 }
 
 model Greenhouse {
-  id            Int      @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   name          String
   country       String
   website       String
   phone         String
   cif           String
   profileImage  String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  temperatures  Temperature[]
+  humidities    Humidity[]
+  brightnesses  Brightness[] 
+}
+
+model Temperature {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id]) 
+}
+
+model Humidity {
+  id            Int       @id @default(autoincrement())
+  value         Float    
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Brightness {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
 }

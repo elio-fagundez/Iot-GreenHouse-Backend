@@ -26,6 +26,12 @@ model Greenhouse {
   temperatures  Temperature[]
   humidities    Humidity[]
   brightnesses  Brightness[] 
+  soilHumidities SoilHumidity[]
+  co2             Co2[]
+  fan1            Fan1[]
+  lamp1           Lamp1[]
+  pump1           Pump1[]
+  heater1         Heater1[]
 }
 
 model Temperature {
@@ -47,6 +53,60 @@ model Humidity {
 }
 
 model Brightness {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model SoilHumidity {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Co2 {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Fan1 {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Lamp1 {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Pump1 {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Heater1 {
   id            Int       @id @default(autoincrement())
   value         Float     
   createdAt     DateTime  @default(now())

@@ -104,6 +104,37 @@ router.post('/temperatures', async (req, res) => {
     }
 });
 
+router.put('/temperatures/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedTemperature = await prisma.temperature.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedTemperature);
+    } catch (error) {
+        console.error("Error updating temperature:", error);
+        res.status(500).send("Error updating temperature");
+    }
+});
+
+router.delete('/temperatures/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.temperature.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting temperature:", error);
+        res.status(500).send("Error deleting temperature");
+    }
+});
+
 // Endpoints to Humidity
 router.get('/humidities', async (req, res) => {
     try {
@@ -128,6 +159,37 @@ router.post('/humidities', async (req, res) => {
     } catch (error) {
         console.error("Error creating a new humidity:", error);
         res.status(500).send("Error creating a new humidity");
+    }
+});
+
+router.put('/humidities/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedHumidity = await prisma.humidity.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedHumidity);
+    } catch (error) {
+        console.error("Error updating humidity:", error);
+        res.status(500).send("Error updating humidity");
+    }
+});
+
+router.delete('/humidities/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.humidity.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting humidity:", error);
+        res.status(500).send("Error deleting humidity");
     }
 });
 
@@ -158,6 +220,37 @@ router.post('/brightnesses', async (req, res) => {
     }
 });
 
+router.put('/brightnesses/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedBrightness = await prisma.brightness.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedBrightness);
+    } catch (error) {
+        console.error("Error updating brightness:", error);
+        res.status(500).send("Error updating brightness");
+    }
+});
+
+router.delete('/brightnesses/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.brightness.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting brightness:", error);
+        res.status(500).send("Error deleting brightness");
+    }
+});
+
 // Endpoints para SoilHumidity
 router.get('/soilhumidities', async (req, res) => {
     try {
@@ -182,6 +275,37 @@ router.post('/soilhumidities', async (req, res) => {
     } catch (error) {
         console.error("Error creating a new soil humidity:", error);
         res.status(500).send("Error creating a new soil humidity");
+    }
+});
+
+router.put('/soilhumidities/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedSoilHumidity = await prisma.soilHumidity.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedSoilHumidity);
+    } catch (error) {
+        console.error("Error updating soil humidity:", error);
+        res.status(500).send("Error updating soil humidity");
+    }
+});
+
+router.delete('/soilhumidities/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.soilHumidity.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting soil humidity:", error);
+        res.status(500).send("Error deleting soil humidity");
     }
 });
 
@@ -213,6 +337,37 @@ router.post('/co2', async (req, res) => {
     }
 });
 
+router.put('/co2/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedCO2 = await prisma.co2.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedCO2);
+    } catch (error) {
+        console.error("Error updating CO2 level:", error);
+        res.status(500).send("Error updating CO2 level");
+    }
+});
+
+router.delete('/co2/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.co2.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting CO2 level:", error);
+        res.status(500).send("Error deleting CO2 level");
+    }
+});
+
 // Endpoints para Fan1
 router.get('/fan1', async (req, res) => {
     try {
@@ -240,6 +395,37 @@ router.post('/fan1', async (req, res) => {
     }
 });
 
+router.put('/fan1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedFan1 = await prisma.fan1.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedFan1);
+    } catch (error) {
+        console.error("Error updating Fan1 level:", error);
+        res.status(500).send("Error updating Fan1 level");
+    }
+});
+
+router.delete('/fan1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.fan1.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting Fan1 level:", error);
+        res.status(500).send("Error deleting Fan1 level");
+    }
+});
+
 
 // Endpoints para Lamp 1
 router.get('/lamp1', async (req, res) => {
@@ -247,8 +433,8 @@ router.get('/lamp1', async (req, res) => {
         const lamp1Levels = await prisma.lamp1.findMany();
         res.json(lamp1Levels);
     } catch (error) {
-        console.error("Error fetching Fan1 levels:", error);
-        res.status(500).send("Error fetching Fan1 levels");
+        console.error("Error fetching Lamp1 levels:", error);
+        res.status(500).send("Error fetching Lamp1 levels");
     }
 });
 
@@ -263,8 +449,39 @@ router.post('/lamp1', async (req, res) => {
         });
         res.json(newLamp1);
     } catch (error) {
-        console.error("Error creating a new Fan1 level:", error);
-        res.status(500).send("Error creating a new Fan1 level");
+        console.error("Error creating a new Lamp1 level:", error);
+        res.status(500).send("Error creating a new Lamp1 level");
+    }
+});
+
+router.put('/lamp1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedLamp1 = await prisma.lamp1.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedLamp1);
+    } catch (error) {
+        console.error("Error updating Lamp1 level:", error);
+        res.status(500).send("Error updating Lamp1 level");
+    }
+});
+
+router.delete('/lamp1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.lamp1.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting Lamp1 level:", error);
+        res.status(500).send("Error deleting Lamp1 level");
     }
 });
 
@@ -295,6 +512,37 @@ router.post('/pump1', async (req, res) => {
     }
 });
 
+router.put('/pump1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedPump1 = await prisma.pump1.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedPump1);
+    } catch (error) {
+        console.error("Error updating Pump1 level:", error);
+        res.status(500).send("Error updating Pump1 level");
+    }
+});
+
+router.delete('/pump1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.pump1.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting Pump1 level:", error);
+        res.status(500).send("Error deleting Pump1 level");
+    }
+});
+
 // Endpoints para Heater 1
 router.get('/heater1', async (req, res) => {
     try {
@@ -319,6 +567,37 @@ router.post('/heater1', async (req, res) => {
     } catch (error) {
         console.error("Error creating a new Heater1 level:", error);
         res.status(500).send("Error creating a new Heater1 level");
+    }
+});
+
+router.put('/heater1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedHeater1 = await prisma.heater1.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedHeater1);
+    } catch (error) {
+        console.error("Error updating Heater1 level:", error);
+        res.status(500).send("Error updating Heater1 level");
+    }
+});
+
+router.delete('/heater1/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.heater1.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting Heater1 level:", error);
+        res.status(500).send("Error deleting Heater1 level");
     }
 });
 

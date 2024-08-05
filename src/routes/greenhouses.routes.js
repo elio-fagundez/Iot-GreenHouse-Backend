@@ -601,6 +601,64 @@ router.delete('/heater1/:id', async (req, res) => {
     }
 });
 
+// Endpoints para ph
+router.get('/ph', async (req, res) => {
+    try {
+        const phLevels = await prisma.ph.findMany();
+        res.json(phLevels);
+    } catch (error) {
+        console.error("Error fetching ph levels:", error);
+        res.status(500).send("Error fetching ph levels");
+    }
+});
+
+router.post('/ph', async (req, res) => {
+    try {
+        const { value, greenhouseId } = req.body;
+        const newPh = await prisma.ph.create({
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(newPh);
+    } catch (error) {
+        console.error("Error creating a new ph level:", error);
+        res.status(500).send("Error creating a new ph level");
+    }
+});
+
+router.put('/ph/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { value, greenhouseId } = req.body;
+        const updatedPh = await prisma.ph.update({
+            where: { id: parseInt(id) },
+            data: {
+                value,
+                greenhouseId
+            }
+        });
+        res.json(updatedPh);
+    } catch (error) {
+        console.error("Error updating ph level:", error);
+        res.status(500).send("Error updating ph level");
+    }
+});
+
+router.delete('/ph/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await prisma.ph.delete({
+            where: { id: parseInt(id) }
+        });
+        res.sendStatus(204);
+    } catch (error) {
+        console.error("Error deleting ph level:", error);
+        res.status(500).send("Error deleting ph level");
+    }
+});
+
 
 
 export default router;

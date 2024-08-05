@@ -32,6 +32,7 @@ model Greenhouse {
   lamp1           Lamp1[]
   pump1           Pump1[]
   heater1         Heater1[]
+  ph              ph[]
 }
 
 model Temperature {
@@ -114,3 +115,13 @@ model Heater1 {
   greenhouseId  Int       
   greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
 }
+
+model ph {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+

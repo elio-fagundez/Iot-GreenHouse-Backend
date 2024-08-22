@@ -21,5 +21,5 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const port = 4000;
+const port = 5000;
 app.listen(port, () => console.log('Server on port', port));

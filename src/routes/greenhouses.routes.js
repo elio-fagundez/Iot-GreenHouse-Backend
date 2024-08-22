@@ -91,13 +91,16 @@ router.get('/temperatures', async (req, res) => {
 router.post('/temperatures', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
-        const newTemperature = await prisma.temperature.create({
+        await prisma.temperature.create({
             data: {
                 value,
                 greenhouseId
             }
         });
-        res.json(newTemperature);
+
+
+        res.json("Temperature  created");
+
     } catch (error) {
         console.error("Error creating a new temperature:", error);
         res.status(500).send("Error creating a new temperature");
@@ -656,6 +659,68 @@ router.delete('/ph/:id', async (req, res) => {
     } catch (error) {
         console.error("Error deleting ph level:", error);
         res.status(500).send("Error deleting ph level");
+    }
+});
+
+
+//SENSORS
+router.post('/sensors', async (req, res) => {
+    const { temp, hum, lum, moi } = req.body; 
+    const greenhouseId  = 1; //default greenhouse  
+
+    try {
+        //temperature
+        try {
+            await prisma.temperature.create({
+                data: {
+                    value: temp,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating temperature:", error);
+        }
+        
+        //humidity
+        try {
+            await prisma.humidity.create({
+                data: {
+                    value: hum,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating humidity:", error);
+        }
+
+        //luminosity
+        try {
+            await prisma.luminosity.create({
+                data: {
+                    value: lum,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating luminosity:", error);
+        }
+
+        //moi
+        try {
+            await prisma.moi.create({
+                data: {
+                    value: moi,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating moi:", error);
+        }
+
+        res.json("Sensors created");
+
+    } catch (error) {
+        res.status(500).send("Error creating sensors");
     }
 });
 

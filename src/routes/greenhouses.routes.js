@@ -196,10 +196,10 @@ router.delete('/humidities/:id', async (req, res) => {
     }
 });
 
-// Endpoints to Brightness
-router.get('/brightnesses', async (req, res) => {
+// Endpoints to luminosity
+router.get('/luminosity', async (req, res) => {
     try {
-        const brightnesses = await prisma.brightness.findMany();
+        const brightnesses = await prisma.luminosity.findMany();
         res.json(brightnesses);
     } catch (error) {
         console.error("Error fetching brightnesses:", error);
@@ -207,10 +207,10 @@ router.get('/brightnesses', async (req, res) => {
     }
 });
 
-router.post('/brightnesses', async (req, res) => {
+router.post('/luminosity', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
-        const newBrightness = await prisma.brightness.create({
+        const newBrightness = await prisma.luminosity.create({
             data: {
                 value,
                 greenhouseId
@@ -218,16 +218,16 @@ router.post('/brightnesses', async (req, res) => {
         });
         res.json(newBrightness);
     } catch (error) {
-        console.error("Error creating a new brightness:", error);
-        res.status(500).send("Error creating a new brightness");
+        console.error("Error creating a new luminosity:", error);
+        res.status(500).send("Error creating a new luminosity");
     }
 });
 
-router.put('/brightnesses/:id', async (req, res) => {
+router.put('/luminosity/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { value, greenhouseId } = req.body;
-        const updatedBrightness = await prisma.brightness.update({
+        const updatedBrightness = await prisma.luminosity.update({
             where: { id: parseInt(id) },
             data: {
                 value,
@@ -241,23 +241,23 @@ router.put('/brightnesses/:id', async (req, res) => {
     }
 });
 
-router.delete('/brightnesses/:id', async (req, res) => {
+router.delete('/luminosity/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        await prisma.brightness.delete({
+        await prisma.luminosity.delete({
             where: { id: parseInt(id) }
         });
         res.sendStatus(204);
     } catch (error) {
-        console.error("Error deleting brightness:", error);
-        res.status(500).send("Error deleting brightness");
+        console.error("Error deleting luminosity:", error);
+        res.status(500).send("Error deleting luminosity");
     }
 });
 
 // Endpoints para SoilHumidity
 router.get('/soilhumidities', async (req, res) => {
     try {
-        const soilhumidities = await prisma.soilHumidity.findMany();
+        const soilhumidities = await prisma.moi.findMany();
         res.json(soilhumidities);
     } catch (error) {
         console.error("Error fetching soil humidities:", error);
@@ -316,7 +316,7 @@ router.delete('/soilhumidities/:id', async (req, res) => {
 // Endpoints para CO2
 router.get('/co2', async (req, res) => {
     try {
-        const co2Levels = await prisma.co2.findMany();
+        const co2Levels = await prisma.conc.findMany();
         res.json(co2Levels);
     } catch (error) {
         console.error("Error fetching CO2 levels:", error);
@@ -327,7 +327,7 @@ router.get('/co2', async (req, res) => {
 router.post('/co2', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
-        const newCO2 = await prisma.co2.create({
+        const newCO2 = await prisma.conc.create({
             data: {
                 value,
                 greenhouseId
@@ -344,7 +344,7 @@ router.put('/co2/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { value, greenhouseId } = req.body;
-        const updatedCO2 = await prisma.co2.update({
+        const updatedCO2 = await prisma.conc.update({
             where: { id: parseInt(id) },
             data: {
                 value,
@@ -361,7 +361,7 @@ router.put('/co2/:id', async (req, res) => {
 router.delete('/co2/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        await prisma.co2.delete({
+        await prisma.conc.delete({
             where: { id: parseInt(id) }
         });
         res.sendStatus(204);
@@ -665,8 +665,10 @@ router.delete('/ph/:id', async (req, res) => {
 
 //SENSORS
 router.post('/sensors', async (req, res) => {
-    const { temp, hum, lum, moi } = req.body; 
+    const { temp, hum, lum, moi, conc, Ph, } = req.body; 
     const greenhouseId  = 1; //default greenhouse  
+    console.log(req.body);
+    console.log("PH", Ph);
 
     try {
         //temperature
@@ -716,6 +718,72 @@ router.post('/sensors', async (req, res) => {
         } catch (error) {
             console.error("Error creating moi:", error);
         }
+
+          //conc
+          try {
+            await prisma.conc.create({
+                data: {
+                    value: conc,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating conc:", error);
+        }
+
+
+        //conc
+        try {
+                await prisma.ph.create({
+                    data: {
+                        value: Ph,
+                        greenhouseId
+                    }
+                });
+        } catch (error) {
+                console.error("Error creating Ph:", error);
+        }
+
+        res.json("Sensors created");
+
+    } catch (error) {
+        res.status(500).send("Error creating sensors");
+    }
+});
+
+
+//ACTUATORS
+router.post('/actuators', async (req, res) => {
+    const { rs_med, volts } = req.body; 
+    const greenhouseId  = 1; //default greenhouse  
+
+    try {
+        //rs_med
+        try {
+            await prisma.rs_med.create({
+                data: {
+                    value: rs_med,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating rs_med:", error);
+        }
+        
+     
+        //volts
+        try {
+            await prisma.volts.create({
+                data: {
+                    value: volts,
+                    greenhouseId
+                }
+            });
+        } catch (error) {
+            console.error("Error creating volts:", error);
+        }
+
+    
 
         res.json("Sensors created");
 

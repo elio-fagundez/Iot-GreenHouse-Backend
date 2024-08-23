@@ -35,6 +35,9 @@ model Greenhouse {
   ph              ph[]
   luminosity      Luminosity[]
   moi             Moi[]
+  rs_med          Rs_med[]
+  conc            Conc[]
+  volts           Volts[]
 }
 
 model Temperature {
@@ -144,6 +147,35 @@ model Moi {
   greenhouseId  Int       
   greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
 }
+
+
+model Rs_med {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Conc {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
+model Volts {
+  id            Int       @id @default(autoincrement())
+  value         Float     
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  greenhouseId  Int       
+  greenhouse    Greenhouse @relation(fields: [greenhouseId], references: [id])
+}
+
 
 
 

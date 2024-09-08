@@ -88,6 +88,22 @@ router.get('/temperatures', async (req, res) => {
     }
 });
 
+// Endpoint para obtener temperaturas por ID del invernadero
+router.get('/temperatures/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const temperatures = await prisma.temperature.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(temperatures);
+    } catch (error) {
+        console.error(`Error fetching temperatures for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching temperatures");
+    }
+});
+
 router.post('/temperatures', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
@@ -145,6 +161,22 @@ router.get('/humidities', async (req, res) => {
         res.json(humidities);
     } catch (error) {
         console.error("Error fetching humidities:", error);
+        res.status(500).send("Error fetching humidities");
+    }
+});
+
+// Endpoint para obtener temperaturas por ID del invernadero
+router.get('/humidities/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const humidities = await prisma.humidity.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(humidities);
+    } catch (error) {
+        console.error(`Error fetching humidities for greenhouseId ${greenhouseId}:`, error);
         res.status(500).send("Error fetching humidities");
     }
 });
@@ -207,6 +239,22 @@ router.get('/luminosity', async (req, res) => {
     }
 });
 
+// Endpoint para obtener temperaturas por ID del invernadero
+router.get('/luminosity/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const luminosities = await prisma.luminosity.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(luminosities);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
+    }
+});
+
 router.post('/luminosity', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
@@ -262,6 +310,22 @@ router.get('/soilhumidities', async (req, res) => {
     } catch (error) {
         console.error("Error fetching soil humidities:", error);
         res.status(500).send("Error fetching soil humidities");
+    }
+});
+
+// Endpoint para obtener temperaturas por ID del invernadero
+router.get('/soilhumidities/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const soilhumidities = await prisma.moi.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(soilhumidities);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
     }
 });
 
@@ -324,6 +388,22 @@ router.get('/co2', async (req, res) => {
     }
 });
 
+// Endpoint para obtener temperaturas por ID del invernadero
+router.get('/co2/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const co2Levels = await prisma.conc.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(co2Levels);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
+    }
+});
+
 router.post('/co2', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
@@ -379,6 +459,21 @@ router.get('/fan1', async (req, res) => {
     } catch (error) {
         console.error("Error fetching Fan1 levels:", error);
         res.status(500).send("Error fetching Fan1 levels");
+    }
+});
+
+router.get('/fan1/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const fan1Levels = await prisma.fan1.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(fan1Levels);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
     }
 });
 
@@ -441,6 +536,21 @@ router.get('/lamp1', async (req, res) => {
     }
 });
 
+router.get('/lamp1/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const lamp1Levels = await prisma.lamp1.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(lamp1Levels);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
+    }
+});
+
 router.post('/lamp1', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
@@ -499,6 +609,21 @@ router.get('/pump1', async (req, res) => {
     }
 });
 
+router.get('/pump1/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const pump1Levels = await prisma.pump1.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(pump1Levels);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
+    }
+});
+
 router.post('/pump1', async (req, res) => {
     try {
         const { value, greenhouseId } = req.body;
@@ -554,6 +679,21 @@ router.get('/heater1', async (req, res) => {
     } catch (error) {
         console.error("Error fetching Heater1 levels:", error);
         res.status(500).send("Error fetching Heater1 levels");
+    }
+});
+
+router.get('/heater1/:greenhouseId', async (req, res) => {
+    const { greenhouseId } = req.params;
+    try {
+        const heater1Levels = await prisma.heater1.findMany({
+            where: {
+                greenhouseId: parseInt(greenhouseId, 10)
+            }
+        });
+        res.json(heater1Levels);
+    } catch (error) {
+        console.error(`Error fetching luminosities for greenhouseId ${greenhouseId}:`, error);
+        res.status(500).send("Error fetching luminosities");
     }
 });
 
